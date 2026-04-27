@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -14,15 +15,17 @@
             overflow: auto;
             padding: 20px;
         }
+
         .admin-container {
             max-width: 800px;
             margin: 0 auto;
             background: white;
             padding: 2.5rem;
             border-radius: 1rem;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
             border: 1px solid #ddd;
         }
+
         h1 {
             color: #2d3436;
             margin-bottom: 2rem;
@@ -30,6 +33,7 @@
             background: none;
             -webkit-text-fill-color: initial;
         }
+
         .config-row {
             display: grid;
             grid-template-columns: 2fr 1fr 1fr;
@@ -39,6 +43,7 @@
             padding-bottom: 1rem;
             border-bottom: 1px solid #eee;
         }
+
         input {
             background: #fff;
             border: 1px solid #ccc;
@@ -47,50 +52,71 @@
             border-radius: 0.5rem;
             width: 100%;
         }
-        label { 
-            font-weight: 600; 
+
+        label {
+            font-weight: 600;
             color: #636e72;
             display: block;
             margin-bottom: 0.5rem;
         }
-        .save-section { margin-top: 3rem; text-align: center; }
-        .date-picker { 
-            margin-bottom: 3rem; 
+
+        .save-section {
+            margin-top: 3rem;
+            text-align: center;
+        }
+
+        .date-picker {
+            margin-bottom: 3rem;
             background: #f9f9f9;
             padding: 1.5rem;
             border-radius: 0.8rem;
         }
+
         .btn-primary {
             width: 100%;
             max-width: 300px;
         }
     </style>
 </head>
+
 <body>
     <div class="admin-container">
         <h1>Admin Dashboard</h1>
         <div class="date-picker">
             <label>Configure for Date:</label>
             <input type="date" id="config-date">
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-top: 1rem;">
+                <div>
+                    <label>Start Hour (0-23):</label>
+                    <input type="number" id="start-hour" value="10" min="0" max="23">
+                </div>
+                <div>
+                    <label>End Hour (0-23):</label>
+                    <input type="number" id="end-hour" value="22" min="0" max="23">
+                </div>
+            </div>
         </div>
-        
+
         <div id="segments-config">
             <!-- JS will populate rows for 8 segments -->
         </div>
 
         <div class="save-section">
             <button id="save-config" class="btn-primary">Save Configuration</button>
-            <a href="index.html" style="color: white; display: block; margin-top: 1rem;">Back to Game</a>
+            <a href="index.html" style="color: #6c5ce7; display: block; margin-top: 1rem; font-weight: 600;">Back to
+                Game</a>
         </div>
     </div>
 
     <script>
         const segments = [
-            "Extra 5% Off", "Free Lab Test", "Free Gift", "Free e-Consult", 
+            "Extra 5% Off", "Free Lab Test", "Free Gift", "Free e-Consult",
             "Free Gift", "100% Cashback", "Free Lab Test", "Free Gift"
         ];
         const container = document.getElementById('segments-config');
         const dateInput = document.getElementById('config-date');
+        const startHourInput = document.getElementById('start-hour');
+        const endHourInput = document.getElementById('end-hour');
 
         // Set default date to today
         dateInput.valueAsDate = new Date();
@@ -101,7 +127,7 @@
                 const row = document.createElement('div');
                 row.className = 'config-row';
                 row.innerHTML = `
-                    <span>${i+1}. ${s}</span>
+                    <span>${i + 1}. ${s}</span>
                     <input type="number" class="limit" data-idx="${i}" placeholder="Unlimited">
                     <input type="number" class="weight" data-idx="${i}" value="10">
                 `;
@@ -112,7 +138,10 @@
         function loadConfig() {
             const date = dateInput.value;
             const config = JSON.parse(localStorage.getItem(`config_${date}`)) || {};
-            
+
+            startHourInput.value = config.timings?.start ?? 10;
+            endHourInput.value = config.timings?.end ?? 22;
+
             document.querySelectorAll('.limit').forEach(input => {
                 const idx = input.dataset.idx;
                 input.value = config[idx]?.limit || '';
@@ -124,10 +153,15 @@
         }
 
         dateInput.addEventListener('change', loadConfig);
-        
+
         document.getElementById('save-config').addEventListener('click', () => {
             const date = dateInput.value;
-            const config = {};
+            const config = {
+                timings: {
+                    start: parseInt(startHourInput.value),
+                    end: parseInt(endHourInput.value)
+                }
+            };
             document.querySelectorAll('.limit').forEach(input => {
                 const idx = input.dataset.idx;
                 const weight = document.querySelector(`.weight[data-idx="${idx}"]`).value;
@@ -144,4 +178,5 @@
         loadConfig();
     </script>
 </body>
+
 </html>

@@ -76,8 +76,26 @@ function getWinningIndex() {
 
 }
 
+// Time check logic
+function isEventActive() {
+    const today = new Date().toISOString().split('T')[0];
+    const config = JSON.parse(localStorage.getItem(`config_${today}`)) || { timings: { start: 10, end: 22 } };
+    const currentHour = new Date().getHours();
+    
+    const start = config.timings?.start ?? 10;
+    const end = config.timings?.end ?? 22;
+    
+    return currentHour >= start && currentHour < end;
+}
+
 // Page switching
 startBtn.addEventListener('click', () => {
+    if (!isEventActive()) {
+        const today = new Date().toISOString().split('T')[0];
+        const config = JSON.parse(localStorage.getItem(`config_${today}`)) || { timings: { start: 10, end: 22 } };
+        alert(`Event is closed. Active hours: ${config.timings.start}:00 - ${config.timings.end}:00`);
+        return;
+    }
     landingPage.classList.remove('active');
     gamePage.classList.add('active');
 });

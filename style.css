@@ -105,6 +105,7 @@ p {
     border-radius: 50%;
     border: 12px solid #ffffff;
     box-shadow: 0 0 50px rgba(0,0,0,0.5), inset 0 0 20px rgba(0,0,0,0.3);
+    background: white;
 }
 
 .wheel {
@@ -112,43 +113,42 @@ p {
     height: 100%;
     border-radius: 50%;
     position: relative;
-    overflow: hidden;
     transition: transform 5s cubic-bezier(0.1, 0, 0, 1);
+    /* Conic gradient will be set via JS */
 }
 
-.segment {
+.segment-label {
     position: absolute;
-    width: 50%;
+    top: 0;
+    left: 50%;
     height: 50%;
-    transform-origin: 100% 100%;
+    width: 100px;
+    margin-left: -50px;
+    transform-origin: bottom center;
     display: flex;
-    align-items: center;
     justify-content: center;
-    font-weight: 600;
+    align-items: flex-start;
+    padding-top: 40px;
+    font-weight: 700;
     font-size: 0.9rem;
     color: white;
-    text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
-    padding-bottom: 80px;
-}
-
-.segment span {
-    transform: rotate(22.5deg); /* Center text in 45deg segment */
-    display: block;
+    text-shadow: 1px 1px 3px rgba(0,0,0,0.8);
     text-align: center;
-    width: 100px;
+    pointer-events: none;
+    z-index: 5;
 }
 
 .pointer {
     position: absolute;
     top: 50%;
-    right: -30px;
-    transform: translateY(-50%) rotate(-90deg);
-    width: 60px;
-    height: 50px;
+    right: -25px;
+    transform: translateY(-50%);
+    width: 50px;
+    height: 40px;
     background: #ff3d81;
-    clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
-    z-index: 10;
-    box-shadow: 5px 0 10px rgba(0,0,0,0.3);
+    clip-path: polygon(100% 50%, 0 0, 0 100%);
+    z-index: 30;
+    filter: drop-shadow(2px 2px 5px rgba(0,0,0,0.3));
 }
 
 .spin-center {

@@ -21,20 +21,24 @@ const resetBtn = document.getElementById('reset-btn');
 let currentRotation = 0;
 let isSpinning = false;
 
-// Create segments
-segments.forEach((segment, i) => {
-    const el = document.createElement('div');
-    el.className = 'segment';
-    el.style.backgroundColor = segment.color;
-    el.style.transform = `rotate(${i * 45}deg) skewY(-45deg)`;
-    
-    const content = document.createElement('span');
-    content.innerText = segment.text;
-    content.style.transform = `skewY(45deg) rotate(22.5deg)`;
-    
-    el.appendChild(content);
-    wheel.appendChild(el);
-});
+// Create Wheel Visuals
+function initWheel() {
+    // 1. Create conic gradient background
+    const gradientParts = segments.map((s, i) => `${s.color} ${i * 45}deg ${(i + 1) * 45}deg`);
+    wheel.style.background = `conic-gradient(${gradientParts.join(', ')})`;
+
+    // 2. Add labels
+    segments.forEach((segment, i) => {
+        const label = document.createElement('div');
+        label.className = 'segment-label';
+        // Rotate labels to center of segment (i*45 + 22.5)
+        label.style.transform = `rotate(${i * 45 + 22.5}deg)`;
+        label.innerHTML = `<span>${segment.text}</span>`;
+        wheel.appendChild(label);
+    });
+}
+
+initWheel();
 
 // Page switching
 startBtn.addEventListener('click', () => {
@@ -52,35 +56,26 @@ spinBtn.addEventListener('click', () => {
     
     wheel.style.transform = `rotate(${currentRotation}deg)`;
     
-    // Calculate result
-    // Pointer is at the right (0 deg or 360 deg relative to screen)
-    // The wheel rotates clockwise.
-    // We need to find which segment is at the pointer position (right side).
-    // The rotation is currentRotation. 
-    // The pointer is at 0 degrees (on the right).
-    // Final rotation mod 360 gives relative rotation.
-    // But since the wheel rotates clockwise, the segments move "past" the pointer.
-    
     setTimeout(() => {
         isSpinning = false;
+        
+        // Pointer is at 90deg (3 o'clock position)
+        // Wheel starts with Segment 0 at 0-45deg (12 o'clock area)
+        // Final rotation is currentRotation
+        // The degree currently at the pointer (90deg) was originally at:
+        // (90 - currentRotation) % 360
+        
         const actualDeg = currentRotation % 360;
+        const pointerDeg = 90;
+        let relativeDeg = (pointerDeg - actualDeg) % 360;
+        if (relativeDeg < 0) relativeDeg += 360;
         
-        // Pointer is at 0deg (right).
-        // If actualDeg is 0, segment 0 (top-left) has rotated 0.
-        // Wait, the segment layout needs to be accounted for.
-        // Segment 0 starts at 0deg (top-right relative to center).
-        // Since it is skewY(-45), it covers 0 to 45 deg.
-        // Wait, skew logic is tricky. Let's simplify:
-        // Pointer is at 0 degrees (3 o'clock).
-        // Rotation is clockwise.
-        // Winning index = floor((360 - (actualDeg % 360)) / 45)
-        
-        const winningIndex = Math.floor(((360 - (actualDeg % 360)) % 360) / 45);
+        const winningIndex = Math.floor(relativeDeg / 45);
         const result = segments[winningIndex].text;
         
         winText.innerText = `You won: ${result}`;
         resultOverlay.classList.remove('hidden');
-    }, 5000); // Match CSS transition
+    }, 5000); 
 });
 
 resetBtn.addEventListener('click', () => {

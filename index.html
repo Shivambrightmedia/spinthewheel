@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wheel of Good Health | Spin to Win</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div id="landing-page" class="page active">
+        <div class="glass-card">
+            <h1>Wheel of Good Health</h1>
+            <p>For the first time ever! Spin and win an assured FREE gift.</p>
+            <button id="start-game" class="btn-primary">Enter Game</button>
+        </div>
+    </div>
+
+    <div id="game-page" class="page">
+        <div class="game-container">
+            <div class="wheel-wrapper">
+                <div id="wheel" class="wheel">
+                    <!-- Segments generated via JS -->
+                </div>
+                <div class="pointer"></div>
+                <button id="spin-btn" class="spin-center">Spin</button>
+            </div>
+            <div id="result-overlay" class="overlay hidden">
+                <div class="result-card">
+                    <h2>Congratulations!</h2>
+                    <p id="win-text"></p>
+                    <button id="reset-btn" class="btn-primary">Spin Again</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

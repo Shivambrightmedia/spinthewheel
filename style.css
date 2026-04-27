@@ -149,14 +149,14 @@ p {
 .pointer {
     position: absolute;
     top: 50%;
-    right: -25px;
+    right: -15px; /* Moved slightly more towards wheel */
     transform: translateY(-50%);
-    width: 50px;
-    height: 40px;
+    width: 40px;
+    height: 30px;
     background: #ff3d81;
-    clip-path: polygon(100% 50%, 0 0, 0 100%);
+    clip-path: polygon(0% 50%, 100% 0, 100% 100%); /* Pointing left */
     z-index: 30;
-    filter: drop-shadow(2px 2px 5px rgba(0,0,0,0.3));
+    filter: drop-shadow(-2px 2px 5px rgba(0,0,0,0.3));
 }
 
 .spin-center {

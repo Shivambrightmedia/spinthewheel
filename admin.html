@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin - Spin the Wheel Config</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .admin-container {
+            max-width: 800px;
+            margin: 2rem auto;
+            background: var(--glass);
+            backdrop-filter: blur(10px);
+            padding: 2rem;
+            border-radius: 1rem;
+            border: 1px solid var(--glass-border);
+        }
+        .config-row {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr;
+            gap: 1rem;
+            margin-bottom: 1rem;
+            align-items: center;
+        }
+        input {
+            background: rgba(255,255,255,0.1);
+            border: 1px solid var(--glass-border);
+            color: white;
+            padding: 0.5rem;
+            border-radius: 0.5rem;
+        }
+        label { font-weight: 600; }
+        .save-section { margin-top: 2rem; text-align: center; }
+        .date-picker { margin-bottom: 2rem; }
+    </style>
+</head>
+<body>
+    <div class="admin-container">
+        <h1>Admin Dashboard</h1>
+        <div class="date-picker">
+            <label>Configure for Date:</label>
+            <input type="date" id="config-date">
+        </div>
+        
+        <div id="segments-config">
+            <!-- JS will populate rows for 8 segments -->
+        </div>
+
+        <div class="save-section">
+            <button id="save-config" class="btn-primary">Save Configuration</button>
+            <a href="index.html" style="color: white; display: block; margin-top: 1rem;">Back to Game</a>
+        </div>
+    </div>
+
+    <script>
+        const segments = [
+            "Extra 5% Off", "Free Lab Test", "Free Gift", "Free e-Consult", 
+            "Free Gift", "100% Cashback", "Free Lab Test", "Free Gift"
+        ];
+        const container = document.getElementById('segments-config');
+        const dateInput = document.getElementById('config-date');
+
+        // Set default date to today
+        dateInput.valueAsDate = new Date();
+
+        function renderRows() {
+            container.innerHTML = '<div class="config-row"><strong>Segment</strong><strong>Daily Limit</strong><strong>Weight (0-100)</strong></div>';
+            segments.forEach((s, i) => {
+                const row = document.createElement('div');
+                row.className = 'config-row';
+                row.innerHTML = `
+                    <span>${i+1}. ${s}</span>
+                    <input type="number" class="limit" data-idx="${i}" placeholder="Unlimited">
+                    <input type="number" class="weight" data-idx="${i}" value="10">
+                `;
+                container.appendChild(row);
+            });
+        }
+
+        function loadConfig() {
+            const date = dateInput.value;
+            const config = JSON.parse(localStorage.getItem(`config_${date}`)) || {};
+            
+            document.querySelectorAll('.limit').forEach(input => {
+                const idx = input.dataset.idx;
+                input.value = config[idx]?.limit || '';
+            });
+            document.querySelectorAll('.weight').forEach(input => {
+                const idx = input.dataset.idx;
+                input.value = config[idx]?.weight || 10;
+            });
+        }
+
+        dateInput.addEventListener('change', loadConfig);
+        
+        document.getElementById('save-config').addEventListener('click', () => {
+            const date = dateInput.value;
+            const config = {};
+            document.querySelectorAll('.limit').forEach(input => {
+                const idx = input.dataset.idx;
+                const weight = document.querySelector(`.weight[data-idx="${idx}"]`).value;
+                config[idx] = {
+                    limit: input.value ? parseInt(input.value) : null,
+                    weight: parseInt(weight) || 0
+                };
+            });
+            localStorage.setItem(`config_${date}`, JSON.stringify(config));
+            alert('Config saved for ' + date);
+        });
+
+        renderRows();
+        loadConfig();
+    </script>
+</body>
+</html>

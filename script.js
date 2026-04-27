@@ -23,15 +23,12 @@ let isSpinning = false;
 
 // Create Wheel Visuals
 function initWheel() {
-    // 1. Create conic gradient background
     const gradientParts = segments.map((s, i) => `${s.color} ${i * 45}deg ${(i + 1) * 45}deg`);
     wheel.style.background = `conic-gradient(${gradientParts.join(', ')})`;
 
-    // 2. Add labels
     segments.forEach((segment, i) => {
         const label = document.createElement('div');
         label.className = 'segment-label';
-        // Rotate labels to center of segment (i*45 + 22.5)
         label.style.transform = `rotate(${i * 45 + 22.5}deg)`;
         label.innerHTML = `<span>${segment.text}</span>`;
         wheel.appendChild(label);
@@ -39,6 +36,43 @@ function initWheel() {
 }
 
 initWheel();
+
+// Admin Logic - Weighted Selection with Limits
+function getWinningIndex() {
+    const today = new Date().toISOString().split('T')[0];
+    const config = JSON.parse(localStorage.getItem(`config_${today}`)) || {};
+    const stats = JSON.parse(localStorage.getItem(`stats_${today}`)) || {};
+    
+    let totalWeight = 0;
+    const pool = [];
+
+    segments.forEach((_, i) => {
+        const conf = config[i] || { weight: 10, limit: null };
+        const currentCount = stats[i] || 0;
+        
+        // Check if limit reached
+        if (conf.limit !== null && currentCount >= conf.limit) {
+            return; // Skip this segment
+        }
+        
+        totalWeight += conf.weight;
+        pool.push({ index: i, weight: conf.weight });
+    });
+
+    if (pool.length === 0) return Math.floor(Math.random() * 8); // Fallback
+
+    let random = Math.random() * totalWeight;
+    for (let item of pool) {
+        if (random < item.weight) {
+            // Log the win
+            stats[item.index] = (stats[item.index] || 0) + 1;
+            localStorage.setItem(`stats_${today}`, JSON.stringify(stats));
+            return item.index;
+        }
+        random -= item.weight;
+    }
+    return pool[0].index;
+}
 
 // Page switching
 startBtn.addEventListener('click', () => {
@@ -50,29 +84,27 @@ startBtn.addEventListener('click', () => {
 spinBtn.addEventListener('click', () => {
     if (isSpinning) return;
     
+    const winningIndex = getWinningIndex();
+    
     isSpinning = true;
-    const extraDegrees = Math.floor(Math.random() * 360) + 1440; // At least 4 full spins
-    currentRotation += extraDegrees;
+    
+    // We want Segment [winningIndex] to end up at the pointer (90deg)
+    // Formula: (90 - actualDeg) % 360 = winningIndex * 45 + 22.5 (center of segment)
+    // actualDeg = (90 - (winningIndex * 45 + 22.5)) % 360
+    
+    let targetDeg = (90 - (winningIndex * 45 + 22.5)) % 360;
+    if (targetDeg < 0) targetDeg += 360;
+    
+    // Total rotation = current + multiple spins + offset to target
+    const currentBase = currentRotation - (currentRotation % 360);
+    const extraSpins = 1440; // 4 full spins
+    currentRotation = currentBase + extraSpins + targetDeg;
     
     wheel.style.transform = `rotate(${currentRotation}deg)`;
     
     setTimeout(() => {
         isSpinning = false;
-        
-        // Pointer is at 90deg (3 o'clock position)
-        // Wheel starts with Segment 0 at 0-45deg (12 o'clock area)
-        // Final rotation is currentRotation
-        // The degree currently at the pointer (90deg) was originally at:
-        // (90 - currentRotation) % 360
-        
-        const actualDeg = currentRotation % 360;
-        const pointerDeg = 90;
-        let relativeDeg = (pointerDeg - actualDeg) % 360;
-        if (relativeDeg < 0) relativeDeg += 360;
-        
-        const winningIndex = Math.floor(relativeDeg / 45);
         const result = segments[winningIndex].text;
-        
         winText.innerText = `You won: ${result}`;
         resultOverlay.classList.remove('hidden');
     }, 5000); 

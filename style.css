@@ -122,20 +122,28 @@ p {
     top: 0;
     left: 50%;
     height: 50%;
-    width: 100px;
-    margin-left: -50px;
+    width: 30px;
+    margin-left: -15px;
     transform-origin: bottom center;
     display: flex;
     justify-content: center;
     align-items: flex-start;
-    padding-top: 40px;
+    padding-top: 20px;
+    z-index: 5;
+    pointer-events: none;
+}
+
+.segment-label span {
+    display: block;
+    transform: rotate(90deg);
+    transform-origin: center;
+    white-space: nowrap;
     font-weight: 700;
-    font-size: 0.9rem;
+    font-size: 0.85rem;
     color: white;
     text-shadow: 1px 1px 3px rgba(0,0,0,0.8);
-    text-align: center;
-    pointer-events: none;
-    z-index: 5;
+    text-align: right;
+    width: 150px; /* Length from outer edge towards center */
 }
 
 .pointer {

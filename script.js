@@ -21,6 +21,7 @@ const resetBtn = document.getElementById('reset-btn');
 let currentRotation = 0;
 let isSpinning = false;
 
+
 // Create Wheel Visuals
 function initWheel() {
     const gradientParts = segments.map((s, i) => `${s.color} ${i * 45}deg ${(i + 1) * 45}deg`);
@@ -42,19 +43,19 @@ function getWinningIndex() {
     const today = new Date().toISOString().split('T')[0];
     const config = JSON.parse(localStorage.getItem(`config_${today}`)) || {};
     const stats = JSON.parse(localStorage.getItem(`stats_${today}`)) || {};
-    
+
     let totalWeight = 0;
     const pool = [];
 
     segments.forEach((_, i) => {
         const conf = config[i] || { weight: 10, limit: null };
         const currentCount = stats[i] || 0;
-        
+
         // Check if limit reached
         if (conf.limit !== null && currentCount >= conf.limit) {
             return; // Skip this segment
         }
-        
+
         totalWeight += conf.weight;
         pool.push({ index: i, weight: conf.weight });
     });
@@ -72,6 +73,7 @@ function getWinningIndex() {
         random -= item.weight;
     }
     return pool[0].index;
+
 }
 
 // Page switching
@@ -83,31 +85,31 @@ startBtn.addEventListener('click', () => {
 // Spin logic
 spinBtn.addEventListener('click', () => {
     if (isSpinning) return;
-    
+
     const winningIndex = getWinningIndex();
-    
+
     isSpinning = true;
-    
+
     // We want Segment [winningIndex] to end up at the pointer (90deg)
     // Formula: (90 - actualDeg) % 360 = winningIndex * 45 + 22.5 (center of segment)
     // actualDeg = (90 - (winningIndex * 45 + 22.5)) % 360
-    
+
     let targetDeg = (90 - (winningIndex * 45 + 22.5)) % 360;
     if (targetDeg < 0) targetDeg += 360;
-    
+
     // Total rotation = current + multiple spins + offset to target
     const currentBase = currentRotation - (currentRotation % 360);
     const extraSpins = 1440; // 4 full spins
     currentRotation = currentBase + extraSpins + targetDeg;
-    
+
     wheel.style.transform = `rotate(${currentRotation}deg)`;
-    
+
     setTimeout(() => {
         isSpinning = false;
         const result = segments[winningIndex].text;
         winText.innerText = `You won: ${result}`;
         resultOverlay.classList.remove('hidden');
-    }, 5000); 
+    }, 5000);
 });
 
 resetBtn.addEventListener('click', () => {

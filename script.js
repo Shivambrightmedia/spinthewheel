@@ -128,17 +128,17 @@ spinBtn.addEventListener('click', () => {
         const result = segments[winningIndex].text;
         
         if (result.includes('Better Luck')) {
-            winTitle.innerText = "Oh no! 😢";
+            winTitle.innerHTML = 'Oh no! <i class="fa-solid fa-face-frown"></i>';
             winText.innerText = result;
-            resetBtn.innerText = "Try Again 🔄";
+            resetBtn.innerHTML = 'Try Again <i class="fa-solid fa-rotate-right"></i>';
         } else if (result.includes('Spin Again')) {
-            winTitle.innerText = "Wow! 🤩";
+            winTitle.innerHTML = 'Wow! <i class="fa-solid fa-bolt"></i>';
             winText.innerText = "You get an extra spin!";
-            resetBtn.innerText = "Spin Now 🎯";
+            resetBtn.innerHTML = 'Spin Now <i class="fa-solid fa-circle-play"></i>';
         } else {
-            winTitle.innerText = "GOAL! 🎉";
+            winTitle.innerHTML = 'GOAL! <i class="fa-solid fa-star"></i>';
             winText.innerText = `You won a ${result}!`;
-            resetBtn.innerText = "Claim Prize 🎁";
+            resetBtn.innerHTML = 'Claim Prize <i class="fa-solid fa-gift"></i>';
         }
 
         resultOverlay.classList.remove('hidden');
@@ -147,7 +147,7 @@ spinBtn.addEventListener('click', () => {
 
 resetBtn.addEventListener('click', () => {
     resultOverlay.classList.add('hidden');
-    if (resetBtn.innerText.includes('Claim Prize')) {
+    if (resetBtn.innerHTML.includes('Claim Prize')) {
         // Go back to landing or simulate claim
         landingPage.classList.add('active');
         gamePage.classList.remove('active');

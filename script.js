@@ -171,21 +171,26 @@ function spawnSparks() {
     const rect = wheelWrapper.getBoundingClientRect();
     const centerX = rect.left + rect.width / 2;
     const centerY = rect.top + rect.height / 2;
+    const radius = rect.width / 2;
     
     for (let i = 0; i < 40; i++) {
         const spark = document.createElement('div');
         spark.className = 'spark';
         
         const angle = Math.random() * Math.PI * 2;
-        const velocity = 150 + Math.random() * 250;
+        const velocity = 100 + Math.random() * 200;
         const x = Math.cos(angle) * velocity;
         const y = Math.sin(angle) * velocity;
+        
+        // Start position on the edge
+        const startX = centerX + Math.cos(angle) * radius;
+        const startY = centerY + Math.sin(angle) * radius;
         
         const color = colors[Math.floor(Math.random() * colors.length)];
         spark.style.background = color;
         spark.style.boxShadow = `0 0 15px ${color}`;
-        spark.style.left = centerX + 'px';
-        spark.style.top = centerY + 'px';
+        spark.style.left = startX + 'px';
+        spark.style.top = startY + 'px';
         
         spark.style.setProperty('--x', `${x}px`);
         spark.style.setProperty('--y', `${y}px`);

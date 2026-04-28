@@ -32,8 +32,7 @@ body {
 }
 
 .brand-logo {
-    height: 70px;
-    max-width: 180px;
+    height: 100px;
     object-fit: contain;
 }
 
@@ -231,6 +230,6 @@ body {
         width: 100px;
     }
     .brand-logo {
-        height: 55px;
+        height: 100px;
     }
 }

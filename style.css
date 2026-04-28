@@ -8,13 +8,14 @@
     --card-bg: #ffffff;
 }
 
-html, body {
+html,
+body {
     height: 100dvh;
     width: 100vw;
     margin: 0;
     padding: 0;
     overflow: hidden;
-    position: fixed; 
+    position: fixed;
 }
 
 * {
@@ -75,7 +76,7 @@ body::after {
     z-index: 50;
     padding: 1rem;
     background: rgba(255, 255, 255, 0.9);
-    box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
 }
 
 .brand-logo {
@@ -145,7 +146,7 @@ body::after {
     font-weight: 600;
     margin-bottom: 1.5rem;
     color: #ffffff;
-    text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
 }
 
 .btn-primary:hover {
@@ -153,21 +154,7 @@ body::after {
     box-shadow: 0 12px 25px rgba(0, 82, 155, 0.4);
 }
 
-/* Spark Particles */
-.spark {
-    position: fixed;
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
-    z-index: 2000;
-    pointer-events: none;
-    animation: spark-fly 0.8s forwards cubic-bezier(0, 1, 0.5, 1);
-}
 
-@keyframes spark-fly {
-    0% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
-    100% { transform: translate(calc(-50% + var(--x)), calc(-50% + var(--y))) scale(0); opacity: 0; }
-}
 
 .game-container {
     position: relative;
@@ -192,7 +179,10 @@ body::after {
 .wheel-wrapper::after {
     content: '';
     position: absolute;
-    top: -10px; left: -10px; right: -10px; bottom: -10px;
+    top: -10px;
+    left: -10px;
+    right: -10px;
+    bottom: -10px;
     border-radius: 50%;
     border: 5px dotted #fff;
     opacity: 0.8;
@@ -201,9 +191,20 @@ body::after {
 }
 
 @keyframes border-pulse {
-    0% { border-color: #d4af37; box-shadow: 0 0 0 5px #00529b, 0 0 40px rgba(212, 175, 55, 0.4); }
-    50% { border-color: #f1c40f; box-shadow: 0 0 0 8px #00529b, 0 0 60px rgba(212, 175, 55, 0.8); }
-    100% { border-color: #d4af37; box-shadow: 0 0 0 5px #00529b, 0 0 40px rgba(212, 175, 55, 0.4); }
+    0% {
+        border-color: #d4af37;
+        box-shadow: 0 0 0 5px #00529b, 0 0 40px rgba(212, 175, 55, 0.4);
+    }
+
+    50% {
+        border-color: #f1c40f;
+        box-shadow: 0 0 0 8px #00529b, 0 0 60px rgba(212, 175, 55, 0.8);
+    }
+
+    100% {
+        border-color: #d4af37;
+        box-shadow: 0 0 0 5px #00529b, 0 0 40px rgba(212, 175, 55, 0.4);
+    }
 }
 
 .wheel {

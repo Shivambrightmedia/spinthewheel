@@ -108,19 +108,29 @@ startBtn.addEventListener('click', () => {
 // Spin logic
 spinBtn.addEventListener('click', () => {
     if (isSpinning) return;
-    
+
     const winningIndex = getWinningIndex();
     isSpinning = true;
     wheel.parentElement.classList.add('spinning');
 
-    // Energetic Cracker Interval
+    // Energetic Cracker Interval (canvas-confetti version)
     const crackerInterval = setInterval(() => {
         if (!isSpinning) {
             clearInterval(crackerInterval);
             return;
         }
-        spawnSparks();
-    }, 200);
+        confetti({
+            particleCount: 5,
+            startVelocity: 30,
+            spread: 360,
+            origin: {
+                x: Math.random(),
+                // Start from middle-ish area
+                y: Math.random() * 0.5 + 0.2
+            },
+            colors: ['#ff9f43', '#feca57', '#d4af37']
+        });
+    }, 150);
 
     let targetDeg = (90 - (winningIndex * 45 + 22.5)) % 360;
     if (targetDeg < 0) targetDeg += 360;
@@ -134,6 +144,22 @@ spinBtn.addEventListener('click', () => {
     setTimeout(() => {
         isSpinning = false;
         wheel.parentElement.classList.remove('spinning');
+
+        // Celebration Finale
+        const duration = 3 * 1000;
+        const animationEnd = Date.now() + duration;
+        const defaults = { startVelocity: 30, spread: 360, ticks: 60, zIndex: 0 };
+
+        const randomInRange = (min, max) => Math.random() * (max - min) + min;
+
+        const interval = setInterval(function () {
+            const timeLeft = animationEnd - Date.now();
+            if (timeLeft <= 0) return clearInterval(interval);
+            const particleCount = 50 * (timeLeft / duration);
+            confetti({ ...defaults, particleCount, origin: { x: randomInRange(0.1, 0.3), y: Math.random() - 0.2 } });
+            confetti({ ...defaults, particleCount, origin: { x: randomInRange(0.7, 0.9), y: Math.random() - 0.2 } });
+        }, 250);
+
         const result = segments[winningIndex].text;
 
         if (result.includes('Better Luck')) {
@@ -163,39 +189,4 @@ resetBtn.addEventListener('click', () => {
     }
 });
 
-function spawnSparks() {
-    const container = document.body;
-    const colors = ['#ff9f43', '#feca57', '#ff6b6b', '#fff'];
-    
-    const wheelWrapper = document.querySelector('.wheel-wrapper');
-    const rect = wheelWrapper.getBoundingClientRect();
-    const centerX = rect.left + rect.width / 2;
-    const centerY = rect.top + rect.height / 2;
-    const radius = rect.width / 2;
-    
-    for (let i = 0; i < 40; i++) {
-        const spark = document.createElement('div');
-        spark.className = 'spark';
-        
-        const angle = Math.random() * Math.PI * 2;
-        const velocity = 100 + Math.random() * 200;
-        const x = Math.cos(angle) * velocity;
-        const y = Math.sin(angle) * velocity;
-        
-        // Start position on the edge
-        const startX = centerX + Math.cos(angle) * radius;
-        const startY = centerY + Math.sin(angle) * radius;
-        
-        const color = colors[Math.floor(Math.random() * colors.length)];
-        spark.style.background = color;
-        spark.style.boxShadow = `0 0 15px ${color}`;
-        spark.style.left = startX + 'px';
-        spark.style.top = startY + 'px';
-        
-        spark.style.setProperty('--x', `${x}px`);
-        spark.style.setProperty('--y', `${y}px`);
-        
-        container.appendChild(spark);
-        setTimeout(() => spark.remove(), 800);
-    }
-}
+

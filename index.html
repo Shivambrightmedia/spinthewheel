@@ -3,35 +3,39 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Wheel of Good Health | Spin to Win</title>
+    <title>FIFA 2026 Spin & Win | Dove x Pears</title>
     <link rel="stylesheet" href="style.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800;900&display=swap" rel="stylesheet">
 </head>
 <body>
+    <div class="branding-bar">
+        <div class="brand dove">Dove</div>
+        <div class="brand pears">Pears</div>
+    </div>
+
     <div id="landing-page" class="page active">
         <div class="glass-card">
-            <h1>Wheel of Good Health</h1>
-            <p>For the first time ever! Spin and win an assured FREE gift.</p>
-            <button id="start-game" class="btn-primary">Enter Game</button>
+            <h1 class="fifa-title">FIFA '26<br><span>SPIN & WIN</span></h1>
+            <p class="tagline">Buy and Stand a Chance to Win FIFA'26 Goodies ⚽</p>
+            <button id="start-game" class="btn-primary">Kick Off ⚽</button>
         </div>
     </div>
 
     <div id="game-page" class="page">
         <div class="game-container">
+            <h2 class="game-title">Spin to Win!</h2>
             <div class="wheel-wrapper">
                 <div id="wheel" class="wheel">
                     <!-- Segments generated via JS -->
                 </div>
                 <div class="pointer"></div>
-                <button id="spin-btn" class="spin-center">Spin</button>
+                <button id="spin-btn" class="spin-center">SPIN</button>
             </div>
             <div id="result-overlay" class="overlay hidden">
                 <div class="result-card">
-                    <h2>Congratulations!</h2>
+                    <h2 id="win-title">GOAL! 🎉</h2>
                     <p id="win-text"></p>
-                    <button id="reset-btn" class="btn-primary">Spin Again</button>
+                    <button id="reset-btn" class="btn-primary">Play Again 🔄</button>
                 </div>
             </div>
         </div>

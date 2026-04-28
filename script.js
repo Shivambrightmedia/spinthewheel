@@ -1,12 +1,12 @@
 const segments = [
-    { text: "Extra 5% Off", color: "#ff3d81" },
-    { text: "Free Lab Test", color: "#4834d4" },
-    { text: "Free Gift", color: "#f7d794" },
-    { text: "Free e-Consult", color: "#eb4d4b" },
-    { text: "Free Gift", color: "#f0932b" },
-    { text: "100% Cashback", color: "#f9ca24" },
-    { text: "Free Lab Test", color: "#6ab04c" },
-    { text: "Free Gift", color: "#e056fd" }
+    { text: "🧢 Cap", color: "#e84118" },
+    { text: "👕 Jersey", color: "#00a8ff" },
+    { text: "⚽ Football", color: "#4cd137" },
+    { text: "❌ Better Luck", color: "#7f8fa6" },
+    { text: "🧢 Cap", color: "#e84118" },
+    { text: "👕 Jersey", color: "#00a8ff" },
+    { text: "⚽ Football", color: "#4cd137" },
+    { text: "🔄 Spin Again", color: "#fbc531" }
 ];
 
 const wheel = document.getElementById('wheel');
@@ -17,6 +17,7 @@ const gamePage = document.getElementById('game-page');
 const resultOverlay = document.getElementById('result-overlay');
 const winText = document.getElementById('win-text');
 const resetBtn = document.getElementById('reset-btn');
+const winTitle = document.getElementById('win-title');
 
 let currentRotation = 0;
 let isSpinning = false;
@@ -79,20 +80,20 @@ function getWinningIndex() {
 // Time check logic
 function isEventActive() {
     const today = new Date().toISOString().split('T')[0];
-    const config = JSON.parse(localStorage.getItem(`config_${today}`)) || { timings: { start: 10, end: 22 } };
+    const config = JSON.parse(localStorage.getItem(`config_${today}`)) || { timings: { start: 0, end: 24 } }; // Open 24h by default for engagement
     const currentHour = new Date().getHours();
     
-    const start = config.timings?.start ?? 10;
-    const end = config.timings?.end ?? 22;
+    const start = config.timings?.start ?? 0;
+    const end = config.timings?.end ?? 24;
     
-    return currentHour >= start && currentHour < end;
+    return currentHour >= start && currentHour <= end; // Modified for demo
 }
 
 // Page switching
 startBtn.addEventListener('click', () => {
     if (!isEventActive()) {
         const today = new Date().toISOString().split('T')[0];
-        const config = JSON.parse(localStorage.getItem(`config_${today}`)) || { timings: { start: 10, end: 22 } };
+        const config = JSON.parse(localStorage.getItem(`config_${today}`)) || { timings: { start: 0, end: 24 } };
         alert(`Event is closed. Active hours: ${config.timings.start}:00 - ${config.timings.end}:00`);
         return;
     }
@@ -117,7 +118,7 @@ spinBtn.addEventListener('click', () => {
 
     // Total rotation = current + multiple spins + offset to target
     const currentBase = currentRotation - (currentRotation % 360);
-    const extraSpins = 1440; // 4 full spins
+    const extraSpins = 1800; // 5 full spins for more excitement
     currentRotation = currentBase + extraSpins + targetDeg;
 
     wheel.style.transform = `rotate(${currentRotation}deg)`;
@@ -125,11 +126,30 @@ spinBtn.addEventListener('click', () => {
     setTimeout(() => {
         isSpinning = false;
         const result = segments[winningIndex].text;
-        winText.innerText = `You won: ${result}`;
+        
+        if (result.includes('Better Luck')) {
+            winTitle.innerText = "Oh no! 😢";
+            winText.innerText = result;
+            resetBtn.innerText = "Try Again 🔄";
+        } else if (result.includes('Spin Again')) {
+            winTitle.innerText = "Wow! 🤩";
+            winText.innerText = "You get an extra spin!";
+            resetBtn.innerText = "Spin Now 🎯";
+        } else {
+            winTitle.innerText = "GOAL! 🎉";
+            winText.innerText = `You won a ${result}!`;
+            resetBtn.innerText = "Claim Prize 🎁";
+        }
+
         resultOverlay.classList.remove('hidden');
     }, 5000);
 });
 
 resetBtn.addEventListener('click', () => {
     resultOverlay.classList.add('hidden');
+    if (resetBtn.innerText.includes('Claim Prize')) {
+        // Go back to landing or simulate claim
+        landingPage.classList.add('active');
+        gamePage.classList.remove('active');
+    }
 });

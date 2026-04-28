@@ -195,7 +195,7 @@ spinBtn.addEventListener('click', () => {
     if (targetDeg < 0) targetDeg += 360;
 
     const currentBase = currentRotation - (currentRotation % 360);
-    const extraSpins = 1800;
+    const extraSpins = 2520;
     currentRotation = currentBase + extraSpins + targetDeg;
 
     wheel.style.transform = `rotate(${currentRotation}deg)`;
@@ -237,7 +237,7 @@ spinBtn.addEventListener('click', () => {
         }
 
         resultOverlay.classList.remove('hidden');
-    }, 5000);
+    }, 7000);
 });
 
 resetBtn.addEventListener('click', () => {

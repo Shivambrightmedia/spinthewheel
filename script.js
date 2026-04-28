@@ -33,7 +33,7 @@ function initWheel() {
         label.className = 'segment-label';
         const angle = i * 45 + 22.5;
         label.style.transform = `rotate(${angle}deg)`;
-        
+
         // With pointer at the right (90deg), a -90deg span rotation 
         // ensures text is upright when the segment stops at the pointer.
         label.innerHTML = `<span style="transform: rotate(-90deg)">${segment.text}</span>`;
@@ -86,10 +86,10 @@ function isEventActive() {
     const today = new Date().toISOString().split('T')[0];
     const config = JSON.parse(localStorage.getItem(`config_${today}`)) || { timings: { start: 0, end: 24 } }; // Open 24h by default for engagement
     const currentHour = new Date().getHours();
-    
+
     const start = config.timings?.start ?? 0;
     const end = config.timings?.end ?? 24;
-    
+
     return currentHour >= start && currentHour <= end; // Modified for demo
 }
 
@@ -111,11 +111,20 @@ spinBtn.addEventListener('click', () => {
     isSpinning = true;
     wheel.parentElement.classList.add('spinning');
 
+    // Energetic Cracker Interval
+    const crackerInterval = setInterval(() => {
+        if (!isSpinning) {
+            clearInterval(crackerInterval);
+            return;
+        }
+        spawnSparks();
+    }, 200);
+
     let targetDeg = (90 - (winningIndex * 45 + 22.5)) % 360;
     if (targetDeg < 0) targetDeg += 360;
 
     const currentBase = currentRotation - (currentRotation % 360);
-    const extraSpins = 1800; 
+    const extraSpins = 1800;
     currentRotation = currentBase + extraSpins + targetDeg;
 
     wheel.style.transform = `rotate(${currentRotation}deg)`;
@@ -124,7 +133,7 @@ spinBtn.addEventListener('click', () => {
         isSpinning = false;
         wheel.parentElement.classList.remove('spinning');
         const result = segments[winningIndex].text;
-        
+
         if (result.includes('Better Luck')) {
             winTitle.innerHTML = 'Oh no! <i class="fa-solid fa-face-frown"></i>';
             winText.innerText = result;
@@ -151,3 +160,25 @@ resetBtn.addEventListener('click', () => {
         gamePage.classList.remove('active');
     }
 });
+
+function spawnSparks() {
+    const container = document.querySelector('.wheel-wrapper');
+    const colors = ['#ff9f43', '#feca57', '#ff6b6b', '#fff'];
+
+    for (let i = 0; i < 30; i++) {
+        const spark = document.createElement('div');
+        spark.className = 'spark';
+
+        const angle = Math.random() * Math.PI * 2;
+        const velocity = 100 + Math.random() * 150;
+        const x = Math.cos(angle) * velocity;
+        const y = Math.sin(angle) * velocity;
+
+        spark.style.setProperty('--x', `${x}px`);
+        spark.style.setProperty('--y', `${y}px`);
+        spark.style.background = colors[Math.floor(Math.random() * colors.length)];
+
+        container.appendChild(spark);
+        setTimeout(() => spark.remove(), 800);
+    }
+}

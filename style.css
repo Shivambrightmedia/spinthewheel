@@ -150,13 +150,12 @@ body::after {
 
 /* Spark Particles */
 .spark {
-    position: absolute;
-    width: 6px;
-    height: 6px;
+    position: fixed;
+    width: 8px;
+    height: 8px;
     border-radius: 50%;
-    z-index: 1000;
+    z-index: 2000;
     pointer-events: none;
-    box-shadow: 0 0 10px currentColor;
     animation: spark-fly 0.8s forwards cubic-bezier(0, 1, 0.5, 1);
 }
 

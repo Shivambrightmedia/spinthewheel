@@ -29,13 +29,21 @@ function initWheel() {
     wheel.style.background = `conic-gradient(${gradientParts.join(', ')})`;
 
     segments.forEach((segment, i) => {
+        // Create divider line
+        const divider = document.createElement('div');
+        divider.className = 'wheel-divider';
+        divider.style.transform = `rotate(${i * 45}deg)`;
+        wheel.appendChild(divider);
+
         const label = document.createElement('div');
         label.className = 'segment-label';
         const angle = i * 45 + 22.5;
         label.style.transform = `rotate(${angle}deg)`;
         
-        // -90deg ensures text is horizontal and upright when segment is at the 90deg pointer
-        label.innerHTML = `<span style="transform: rotate(-90deg)">${segment.text}</span>`;
+        // Conditional flip: ensure text is always readable (not upside down)
+        const spanRotation = (angle > 90 && angle < 270) ? 90 : -90;
+        
+        label.innerHTML = `<span style="transform: rotate(${spanRotation}deg)">${segment.text}</span>`;
         wheel.appendChild(label);
     });
 }

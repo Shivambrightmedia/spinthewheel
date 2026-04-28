@@ -16,12 +16,49 @@
 }
 
 body {
-    background: radial-gradient(circle at 15% 50%, rgba(0, 82, 155, 0.08), transparent 25%),
-        radial-gradient(circle at 85% 30%, rgba(212, 175, 55, 0.12), transparent 30%),
-        linear-gradient(135deg, #ffffff 0%, #f0f4f8 100%);
+    background:
+        repeating-linear-gradient(90deg, transparent, transparent 150px, rgba(0, 82, 155, 0.03) 150px, rgba(0, 82, 155, 0.03) 300px),
+        linear-gradient(135deg, #ffffff 0%, #e8edf2 100%);
     color: var(--text-dark);
     height: 100vh;
     overflow: hidden;
+    position: relative;
+}
+
+body::before,
+body::after {
+    content: '';
+    position: fixed;
+    width: 60vw;
+    height: 60vw;
+    border-radius: 50%;
+    filter: blur(120px);
+    z-index: -1;
+    opacity: 0.2;
+    animation: pulse-bg 15s infinite alternate ease-in-out;
+}
+
+body::before {
+    background: var(--primary);
+    top: -10%;
+    left: -10%;
+}
+
+body::after {
+    background: var(--secondary);
+    bottom: -10%;
+    right: -10%;
+    animation-delay: -7s;
+}
+
+@keyframes pulse-bg {
+    0% {
+        transform: scale(1) translate(0, 0);
+    }
+
+    100% {
+        transform: scale(1.2) translate(10%, 10%);
+    }
 }
 
 .branding-bar {
@@ -119,6 +156,24 @@ body {
     /* Gold */
     box-shadow: 0 0 0 5px #00529b, 0 15px 50px rgba(0, 0, 0, 0.2);
     background: #000;
+    animation: border-pulse 4s infinite ease-in-out;
+}
+
+@keyframes border-pulse {
+    0% {
+        border-color: #d4af37;
+        box-shadow: 0 0 0 5px #00529b, 0 15px 50px rgba(0, 0, 0, 0.2);
+    }
+
+    50% {
+        border-color: #f1c40f;
+        box-shadow: 0 0 0 8px #00529b, 0 15px 60px rgba(0, 82, 155, 0.3);
+    }
+
+    100% {
+        border-color: #d4af37;
+        box-shadow: 0 0 0 5px #00529b, 0 15px 50px rgba(0, 0, 0, 0.2);
+    }
 }
 
 .wheel {

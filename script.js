@@ -31,8 +31,13 @@ function initWheel() {
     segments.forEach((segment, i) => {
         const label = document.createElement('div');
         label.className = 'segment-label';
-        label.style.transform = `rotate(${i * 45 + 22.5}deg)`;
-        label.innerHTML = `<span>${segment.text}</span>`;
+        const angle = i * 45 + 22.5;
+        label.style.transform = `rotate(${angle}deg)`;
+        
+        // Flip text if it would be upside down (between 90 and 270 degrees)
+        const spanRotation = (angle > 90 && angle < 270) ? -90 : 90;
+        
+        label.innerHTML = `<span style="transform: rotate(${spanRotation}deg)">${segment.text}</span>`;
         wheel.appendChild(label);
     });
 }

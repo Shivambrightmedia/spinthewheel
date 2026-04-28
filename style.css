@@ -146,7 +146,6 @@ body {
 
 .segment-label span {
     display: block;
-    transform: rotate(90deg);
     transform-origin: center;
     white-space: nowrap;
     font-weight: 900;

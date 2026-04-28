@@ -133,14 +133,13 @@ body {
     position: absolute;
     top: 0;
     left: 50%;
-    height: 90%;
+    height: 50%;
     width: 40px;
     margin-left: -20px;
     transform-origin: bottom center;
     display: flex;
     justify-content: center;
-    align-items: flex-start;
-    padding-top: 10px;
+    align-items: center;
     z-index: 5;
     pointer-events: none;
 }
@@ -150,11 +149,11 @@ body {
     transform-origin: center;
     white-space: nowrap;
     font-weight: 900;
-    font-size: 0.9rem;
+    font-size: 1.1rem;
     color: white;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
     text-align: center;
-    width: 100px;
+    width: 140px;
 }
 
 .pointer {

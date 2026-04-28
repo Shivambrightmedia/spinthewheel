@@ -34,11 +34,8 @@ function initWheel() {
         const angle = i * 45 + 22.5;
         label.style.transform = `rotate(${angle}deg)`;
         
-        // Flip text if it would be upside down (between 90 and 270 degrees)
-        // Adjusting to -90 for better readability in bottom half
-        const spanRotation = (angle > 90 && angle < 270) ? -90 : 90;
-        
-        label.innerHTML = `<span style="transform: rotate(${spanRotation}deg)">${segment.text}</span>`;
+        // -90deg ensures text is horizontal and upright when segment is at the 90deg pointer
+        label.innerHTML = `<span style="transform: rotate(-90deg)">${segment.text}</span>`;
         wheel.appendChild(label);
     });
 }

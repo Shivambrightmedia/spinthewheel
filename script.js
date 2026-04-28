@@ -107,6 +107,8 @@ startBtn.addEventListener('click', () => {
 
 // Spin logic
 spinBtn.addEventListener('click', () => {
+    if (isSpinning) return;
+    
     const winningIndex = getWinningIndex();
     isSpinning = true;
     wheel.parentElement.classList.add('spinning');

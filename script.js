@@ -162,22 +162,29 @@ resetBtn.addEventListener('click', () => {
 });
 
 function spawnSparks() {
-    const container = document.querySelector('.wheel-wrapper');
+    const container = document.querySelector('.game-container');
     const colors = ['#ff9f43', '#feca57', '#ff6b6b', '#fff'];
-
-    for (let i = 0; i < 30; i++) {
+    
+    for (let i = 0; i < 40; i++) {
         const spark = document.createElement('div');
         spark.className = 'spark';
-
+        
         const angle = Math.random() * Math.PI * 2;
-        const velocity = 100 + Math.random() * 150;
+        const velocity = 150 + Math.random() * 200;
         const x = Math.cos(angle) * velocity;
         const y = Math.sin(angle) * velocity;
-
+        
         spark.style.setProperty('--x', `${x}px`);
         spark.style.setProperty('--y', `${y}px`);
         spark.style.background = colors[Math.floor(Math.random() * colors.length)];
-
+        
+        // Center on wheel
+        const wheelWrapper = document.querySelector('.wheel-wrapper');
+        const wheelRect = wheelWrapper.getBoundingClientRect();
+        const containerRect = container.getBoundingClientRect();
+        spark.style.left = (wheelRect.left - containerRect.left + wheelRect.width/2) + 'px';
+        spark.style.top = (wheelRect.top - containerRect.top + wheelRect.height/2) + 'px';
+        
         container.appendChild(spark);
         setTimeout(() => spark.remove(), 800);
     }

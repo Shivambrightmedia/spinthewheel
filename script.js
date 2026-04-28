@@ -35,6 +35,7 @@ function initWheel() {
         label.style.transform = `rotate(${angle}deg)`;
         
         // Flip text if it would be upside down (between 90 and 270 degrees)
+        // Adjusting to -90 for better readability in bottom half
         const spanRotation = (angle > 90 && angle < 270) ? -90 : 90;
         
         label.innerHTML = `<span style="transform: rotate(${spanRotation}deg)">${segment.text}</span>`;

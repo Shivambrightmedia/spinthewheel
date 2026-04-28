@@ -42,7 +42,8 @@ body {
 }
 
 .branding-bar img:nth-child(2) {
-    height: 45px;
+    height: 65px;
+    margin-top: 15px;
 }
 
 .page {
@@ -235,7 +236,8 @@ body {
     }
 
     .branding-bar img:nth-child(2) {
-        height: 38px;
+        height: 50px;
+        margin-top: 12px;
     }
 
     .simple-card {
@@ -255,7 +257,8 @@ body {
     }
 
     .branding-bar img:nth-child(2) {
-        height: 28px;
+        height: 40px;
+        margin-top: 10px;
     }
 
     .segment-label span {

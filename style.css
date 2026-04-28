@@ -32,8 +32,15 @@ body {
 }
 
 .brand-logo {
-    height: 100px;
     object-fit: contain;
+}
+
+.branding-bar img:nth-child(1) {
+    height: 100px;
+}
+
+.branding-bar img:nth-child(2) {
+    height: 45px;
 }
 
 .page {
@@ -229,7 +236,10 @@ body {
         font-size: 0.8rem;
         width: 100px;
     }
-    .brand-logo {
-        height: 100px;
+    .branding-bar img:nth-child(1) {
+        height: 70px;
+    }
+    .branding-bar img:nth-child(2) {
+        height: 30px;
     }
 }

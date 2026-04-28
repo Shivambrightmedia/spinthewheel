@@ -8,9 +8,16 @@
     --card-bg: #ffffff;
 }
 
-* {
+html, body {
+    height: 100dvh;
+    width: 100vw;
     margin: 0;
     padding: 0;
+    overflow: hidden;
+    position: fixed; 
+}
+
+* {
     box-sizing: border-box;
     font-family: 'Outfit', sans-serif;
 }
@@ -18,8 +25,6 @@
 body {
     background: radial-gradient(circle at center, #00529b 0%, #001a33 100%);
     color: white;
-    height: 100vh;
-    overflow: hidden;
     position: relative;
 }
 
@@ -60,8 +65,8 @@ body::after {
 }
 
 .branding-bar {
-    position: absolute;
-    top: 5%;
+    position: fixed;
+    top: 0;
     width: 100%;
     display: flex;
     justify-content: center;

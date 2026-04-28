@@ -19,6 +19,58 @@ const winText = document.getElementById('win-text');
 const resetBtn = document.getElementById('reset-btn');
 const winTitle = document.getElementById('win-title');
 
+// Audio Synthesis Setup
+let audioCtx;
+function initAudio() {
+    if (!audioCtx) {
+        audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    }
+    if (audioCtx.state === 'suspended') {
+        audioCtx.resume();
+    }
+}
+
+function playTick() {
+    if (!audioCtx) return;
+    const osc = audioCtx.createOscillator();
+    const gain = audioCtx.createGain();
+    osc.connect(gain);
+    gain.connect(audioCtx.destination);
+    osc.type = 'sine';
+    osc.frequency.setValueAtTime(600, audioCtx.currentTime);
+    gain.gain.setValueAtTime(0.1, audioCtx.currentTime);
+    gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.1);
+    osc.start();
+    osc.stop(audioCtx.currentTime + 0.1);
+}
+
+function playWinSound() {
+    if (!audioCtx) return;
+    const notes = [523.25, 659.25, 783.99, 1046.50]; // C5, E5, G5, C6
+    notes.forEach((freq, i) => {
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+        osc.frequency.setValueAtTime(freq, audioCtx.currentTime + i * 0.1);
+        gain.gain.setValueAtTime(0.1, audioCtx.currentTime + i * 0.1);
+        gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + i * 0.1 + 0.5);
+        osc.start(audioCtx.currentTime + i * 0.1);
+        osc.stop(audioCtx.currentTime + i * 0.1 + 0.5);
+    });
+}
+
+function getRotationDegrees(el) {
+    const st = window.getComputedStyle(el, null);
+    const tr = st.getPropertyValue("transform");
+    if (tr === "none") return 0;
+    const values = tr.split('(')[1].split(')')[0].split(',');
+    const a = values[0];
+    const b = values[1];
+    let angle = Math.round(Math.atan2(b, a) * (180 / Math.PI));
+    return (angle < 0) ? angle + 360 : angle;
+}
+
 let currentRotation = 0;
 let isSpinning = false;
 
@@ -95,6 +147,8 @@ function isEventActive() {
 
 // Page switching
 startBtn.addEventListener('click', () => {
+    initAudio();
+    // Pre-check if event is active (optional but good for lead capture)
     if (!isEventActive()) {
         const today = new Date().toISOString().split('T')[0];
         const config = JSON.parse(localStorage.getItem(`config_${today}`)) || { timings: { start: 0, end: 24 } };
@@ -114,20 +168,25 @@ spinBtn.addEventListener('click', () => {
     wheel.parentElement.classList.add('spinning');
 
     // Energetic Cracker Interval (canvas-confetti version)
+    let lastTickAngle = 0;
     const crackerInterval = setInterval(() => {
         if (!isSpinning) {
             clearInterval(crackerInterval);
             return;
         }
+
+        // Play tick sound when segment boundary is crossed
+        const currentAngle = getRotationDegrees(wheel);
+        if (Math.abs(currentAngle - lastTickAngle) >= 45) {
+            playTick();
+            lastTickAngle = currentAngle;
+        }
+
         confetti({
             particleCount: 5,
             startVelocity: 30,
             spread: 360,
-            origin: {
-                x: Math.random(),
-                // Start from middle-ish area
-                y: Math.random() * 0.5 + 0.2
-            },
+            origin: { x: Math.random(), y: Math.random() * 0.5 + 0.2 },
             colors: ['#ff9f43', '#feca57', '#d4af37']
         });
     }, 150);
@@ -146,6 +205,7 @@ spinBtn.addEventListener('click', () => {
         wheel.parentElement.classList.remove('spinning');
 
         // Celebration Finale
+        playWinSound();
         const duration = 3 * 1000;
         const animationEnd = Date.now() + duration;
         const defaults = { startVelocity: 30, spread: 360, ticks: 60, zIndex: 0 };

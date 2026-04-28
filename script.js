@@ -1,12 +1,12 @@
 const segments = [
-    { text: "🧢 Cap", color: "#e84118" },
-    { text: "👕 Jersey", color: "#00a8ff" },
-    { text: "⚽ Football", color: "#4cd137" },
-    { text: "❌ Better Luck", color: "#7f8fa6" },
-    { text: "🧢 Cap", color: "#e84118" },
-    { text: "👕 Jersey", color: "#00a8ff" },
-    { text: "⚽ Football", color: "#4cd137" },
-    { text: "🔄 Spin Again", color: "#fbc531" }
+    { text: "Cap", icon: '<i class="fa-solid fa-hat-baseball"></i>', color: "#00529b" },
+    { text: "Jersey", icon: '<i class="fa-solid fa-shirt"></i>', color: "#b8860b" },
+    { text: "Football", icon: '<i class="fa-solid fa-futbol"></i>', color: "#0f1f38" },
+    { text: "Better Luck", icon: '<i class="fa-solid fa-face-frown"></i>', color: "#d4af37" },
+    { text: "Cap", icon: '<i class="fa-solid fa-hat-baseball"></i>', color: "#00529b" },
+    { text: "Jersey", icon: '<i class="fa-solid fa-shirt"></i>', color: "#b8860b" },
+    { text: "Football", icon: '<i class="fa-solid fa-futbol"></i>', color: "#0f1f38" },
+    { text: "Spin Again", icon: '<i class="fa-solid fa-rotate-right"></i>', color: "#d4af37" }
 ];
 
 const wheel = document.getElementById('wheel');
@@ -32,7 +32,7 @@ function initWheel() {
         const label = document.createElement('div');
         label.className = 'segment-label';
         label.style.transform = `rotate(${i * 45 + 22.5}deg)`;
-        label.innerHTML = `<span>${segment.text}</span>`;
+        label.innerHTML = `<span>${segment.icon} ${segment.text}</span>`;
         wheel.appendChild(label);
     });
 }

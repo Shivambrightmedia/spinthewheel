@@ -107,28 +107,22 @@ startBtn.addEventListener('click', () => {
 
 // Spin logic
 spinBtn.addEventListener('click', () => {
-    if (isSpinning) return;
-
     const winningIndex = getWinningIndex();
-
     isSpinning = true;
-
-    // We want Segment [winningIndex] to end up at the pointer (90deg)
-    // Formula: (90 - actualDeg) % 360 = winningIndex * 45 + 22.5 (center of segment)
-    // actualDeg = (90 - (winningIndex * 45 + 22.5)) % 360
+    wheel.parentElement.classList.add('spinning');
 
     let targetDeg = (90 - (winningIndex * 45 + 22.5)) % 360;
     if (targetDeg < 0) targetDeg += 360;
 
-    // Total rotation = current + multiple spins + offset to target
     const currentBase = currentRotation - (currentRotation % 360);
-    const extraSpins = 1800; // 5 full spins for more excitement
+    const extraSpins = 1800; 
     currentRotation = currentBase + extraSpins + targetDeg;
 
     wheel.style.transform = `rotate(${currentRotation}deg)`;
 
     setTimeout(() => {
         isSpinning = false;
+        wheel.parentElement.classList.remove('spinning');
         const result = segments[winningIndex].text;
         
         if (result.includes('Better Luck')) {

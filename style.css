@@ -1,6 +1,8 @@
 :root {
-    --primary: #00529b; /* Dove blue */
-    --secondary: #d4af37; /* Pears gold */
+    --primary: #00529b;
+    /* Dove blue */
+    --secondary: #d4af37;
+    /* Pears gold */
     --bg-light: #f4f6f8;
     --text-dark: #333333;
     --card-bg: #ffffff;
@@ -107,11 +109,11 @@ body {
 
 .wheel-wrapper {
     position: relative;
-    width: 400px;
-    height: 400px;
+    width: clamp(280px, 90vw, 400px);
+    height: clamp(280px, 90vw, 400px);
     border-radius: 50%;
     border: 8px solid #ccc;
-    box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
     background: #fff;
 }
 
@@ -147,7 +149,7 @@ body {
     font-weight: 700;
     font-size: 1rem;
     color: white;
-    text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
     text-align: right;
     width: 140px;
 }
@@ -179,7 +181,7 @@ body {
     font-weight: 800;
     font-size: 1.2rem;
     color: var(--primary);
-    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
     transition: transform 0.1s;
 }
 
@@ -193,7 +195,7 @@ body {
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0,0,0,0.5);
+    background: rgba(0, 0, 0, 0.5);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -213,7 +215,7 @@ body {
     padding: 3rem;
     border-radius: 1rem;
     text-align: center;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
 }
 
 .result-card h2 {
@@ -227,19 +229,56 @@ body {
     margin-bottom: 2rem;
 }
 
-@media (max-width: 600px) {
-    .wheel-wrapper {
-        width: 300px;
-        height: 300px;
+@media (max-width: 820px) {
+    .branding-bar img:nth-child(1) {
+        height: 80px;
     }
+
+    .branding-bar img:nth-child(2) {
+        height: 38px;
+    }
+
+    .simple-card {
+        padding: 2rem 1.2rem;
+        width: 90%;
+    }
+}
+
+@media (max-width: 600px) {
+    .branding-bar {
+        gap: 15px;
+        top: 5%;
+    }
+
+    .branding-bar img:nth-child(1) {
+        height: 60px;
+    }
+
+    .branding-bar img:nth-child(2) {
+        height: 28px;
+    }
+
     .segment-label span {
-        font-size: 0.8rem;
+        font-size: 0.75rem;
         width: 100px;
     }
-    .branding-bar img:nth-child(1) {
-        height: 70px;
+
+    .spin-center {
+        width: 65px;
+        height: 65px;
+        font-size: 1rem;
     }
-    .branding-bar img:nth-child(2) {
-        height: 30px;
+
+    .result-card {
+        padding: 2rem;
+        width: 90%;
+    }
+
+    .result-card h2 {
+        font-size: 1.5rem;
+    }
+
+    .result-card p {
+        font-size: 1.2rem;
     }
 }

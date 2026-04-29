@@ -114,9 +114,10 @@ function getWinningIndex() {
     let totalWeight = 0;
     const pool = [];
 
-    segments.forEach((_, i) => {
-        const conf = config[i] || { weight: 10, limit: null };
-        const currentCount = stats[i] || 0;
+    segments.forEach((segment, i) => {
+        const itemName = segment.text;
+        const conf = config[itemName] || { weight: 10, limit: null };
+        const currentCount = stats[itemName] || 0;
 
         // Check if limit reached
         if (conf.limit !== null && currentCount >= conf.limit) {
@@ -124,7 +125,7 @@ function getWinningIndex() {
         }
 
         totalWeight += conf.weight;
-        pool.push({ index: i, weight: conf.weight });
+        pool.push({ index: i, weight: conf.weight, name: itemName });
     });
 
     if (pool.length === 0) return Math.floor(Math.random() * 8); // Fallback
@@ -132,8 +133,8 @@ function getWinningIndex() {
     let random = Math.random() * totalWeight;
     for (let item of pool) {
         if (random < item.weight) {
-            // Log the win
-            stats[item.index] = (stats[item.index] || 0) + 1;
+            // Log the win by name
+            stats[item.name] = (stats[item.name] || 0) + 1;
             localStorage.setItem(`stats_${today}`, JSON.stringify(stats));
             return item.index;
         }

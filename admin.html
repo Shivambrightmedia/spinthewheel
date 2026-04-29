@@ -109,9 +109,8 @@
     </div>
 
     <script>
-        const segments = [
-            "Extra 5% Off", "Free Lab Test", "Free Gift", "Free e-Consult",
-            "Free Gift", "100% Cashback", "Free Lab Test", "Free Gift"
+        const uniqueGoodies = [
+            "Cap", "Jersey", "Football", "Better Luck", "Spin Again"
         ];
         const container = document.getElementById('segments-config');
         const dateInput = document.getElementById('config-date');
@@ -122,14 +121,14 @@
         dateInput.valueAsDate = new Date();
 
         function renderRows() {
-            container.innerHTML = '<div class="config-row"><strong>Segment</strong><strong>Daily Limit</strong><strong>Weight (0-100)</strong></div>';
-            segments.forEach((s, i) => {
+            container.innerHTML = '<div class="config-row"><strong>Prize</strong><strong>Daily Limit</strong><strong>Weight (0-100)</strong></div>';
+            uniqueGoodies.forEach((s) => {
                 const row = document.createElement('div');
                 row.className = 'config-row';
                 row.innerHTML = `
-                    <span>${i + 1}. ${s}</span>
-                    <input type="number" class="limit" data-idx="${i}" placeholder="Unlimited">
-                    <input type="number" class="weight" data-idx="${i}" value="10">
+                    <span>${s}</span>
+                    <input type="number" class="limit" data-name="${s}" placeholder="Unlimited">
+                    <input type="number" class="weight" data-name="${s}" value="10">
                 `;
                 container.appendChild(row);
             });
@@ -143,12 +142,12 @@
             endHourInput.value = config.timings?.end ?? 22;
 
             document.querySelectorAll('.limit').forEach(input => {
-                const idx = input.dataset.idx;
-                input.value = config[idx]?.limit || '';
+                const name = input.dataset.name;
+                input.value = config[name]?.limit || '';
             });
             document.querySelectorAll('.weight').forEach(input => {
-                const idx = input.dataset.idx;
-                input.value = config[idx]?.weight || 10;
+                const name = input.dataset.name;
+                input.value = config[name]?.weight !== undefined ? config[name].weight : 10;
             });
         }
 
@@ -163,9 +162,9 @@
                 }
             };
             document.querySelectorAll('.limit').forEach(input => {
-                const idx = input.dataset.idx;
-                const weight = document.querySelector(`.weight[data-idx="${idx}"]`).value;
-                config[idx] = {
+                const name = input.dataset.name;
+                const weight = document.querySelector(`.weight[data-name="${name}"]`).value;
+                config[name] = {
                     limit: input.value ? parseInt(input.value) : null,
                     weight: parseInt(weight) || 0
                 };

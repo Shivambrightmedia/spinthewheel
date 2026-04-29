@@ -250,12 +250,8 @@ body::after {
 
 .segment-label {
     position: absolute;
-    top: 0;
+    top: 50%;
     left: 50%;
-    height: 50%;
-    width: 40px;
-    margin-left: -20px;
-    transform-origin: bottom center;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -268,20 +264,20 @@ body::after {
     flex-direction: row;
     justify-content: center;
     align-items: center;
-    gap: 8px;
+    gap: 10px;
+    padding: 0 10px;
     transform-origin: center;
     color: white;
-    filter: drop-shadow(0 2px 5px rgba(0, 0, 0, 0.5));
-    text-align: center;
-    width: 180px;
-    line-height: 1.2;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.9), 0 0 10px rgba(0, 0, 0, 0.5);
+    white-space: nowrap;
+    line-height: 1;
 }
 
 .segment-label small {
-    font-weight: 700;
-    font-size: 0.85rem;
+    font-weight: 900;
+    font-size: 1.1rem;
     text-transform: uppercase;
-    letter-spacing: 0.5px;
+    letter-spacing: 1px;
 }
 
 .segment-label i,
@@ -291,10 +287,9 @@ body::after {
 }
 
 .segment-img {
-    width: 50px;
-    height: 50px;
+    width: 80px;
+    height: 80px;
     object-fit: contain;
-    margin-bottom: 2px;
 }
 
 .pointer {
@@ -463,9 +458,10 @@ body::after {
     }
 
     .segment-label span {
-        width: 120px;
         flex-direction: row !important;
-        gap: 4px;
+        justify-content: center !important;
+        gap: 8px;
+        text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.9) !important;
     }
 
     .segment-label i {
@@ -473,12 +469,13 @@ body::after {
     }
 
     .segment-img {
-        width: 35px !important;
-        height: 35px !important;
+        width: 55px !important;
+        height: 55px !important;
     }
 
     .segment-label small {
-        font-size: 0.6rem !important;
+        font-size: 0.8rem !important;
+        font-weight: 900 !important;
         margin-bottom: 0 !important;
     }
 

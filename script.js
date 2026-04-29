@@ -84,7 +84,7 @@ function initWheel() {
         const label = document.createElement('div');
         label.className = 'segment-label';
         const angle = i * 45 + 22.5;
-        label.style.transform = `rotate(${angle}deg)`;
+        label.style.transform = `translate(-50%, -50%) rotate(${angle}deg) translateY(-95px)`;
 
         // With pointer at the right (90deg), a -90deg span rotation 
         // ensures content is upright when the segment stops at the pointer.
@@ -92,7 +92,7 @@ function initWheel() {
         if (segment.image) {
             content = `<img src="${segment.image}" class="segment-img">`;
         } else {
-            content = `<i class="fa-solid ${segment.icon}" style="font-size: 1.5rem;"></i>`;
+            content = `<i class="fa-solid ${segment.icon}" style="font-size: 2rem;"></i>`;
         }
 
         label.innerHTML = `<span style="transform: rotate(-90deg)">

@@ -264,7 +264,7 @@ body::after {
     flex-direction: row;
     justify-content: center;
     align-items: center;
-    gap: 10px;
+    gap: 0;
     padding: 0 10px;
     transform-origin: center;
     color: white;
@@ -284,6 +284,7 @@ body::after {
 .segment-img {
     filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.3));
     transition: transform 0.3s ease;
+    margin-left: -10px;
 }
 
 .segment-img {
@@ -460,17 +461,19 @@ body::after {
     .segment-label span {
         flex-direction: row !important;
         justify-content: center !important;
-        gap: 8px;
+        gap: 0;
         text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.9) !important;
     }
 
     .segment-label i {
         font-size: 1.1rem !important;
+        margin-left: -5px !important;
     }
 
     .segment-img {
         width: 55px !important;
         height: 55px !important;
+        margin-left: -5px !important;
     }
 
     .segment-label small {

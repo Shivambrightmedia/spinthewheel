@@ -8,116 +8,73 @@
     <link rel="stylesheet" href="style.css">
     <style>
         body {
-            background: radial-gradient(circle at center, #00529b 0%, #001a33 100%);
+            background: #f4f7f6;
+            background-image: none;
             color: #333;
-            min-height: 100vh;
-            overflow-y: auto;
-            padding: 40px 20px;
-            font-family: 'Outfit', sans-serif;
+            height: auto;
+            overflow: auto;
+            padding: 20px;
         }
 
         .admin-container {
-            max-width: 900px;
+            max-width: 800px;
             margin: 0 auto;
-            background: rgba(255, 255, 255, 0.95);
-            padding: 3rem;
-            border-radius: 2rem;
-            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
-            backdrop-filter: blur(10px);
+            background: white;
+            padding: 2.5rem;
+            border-radius: 1rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            border: 1px solid #ddd;
         }
 
         h1 {
-            color: var(--primary);
-            margin-bottom: 2.5rem;
+            color: #2d3436;
+            margin-bottom: 2rem;
             text-align: center;
-            font-weight: 800;
-            text-transform: uppercase;
-            letter-spacing: 2px;
+            background: none;
+            -webkit-text-fill-color: initial;
         }
 
         .config-row {
             display: grid;
             grid-template-columns: 2fr 1fr 1fr;
             gap: 1.5rem;
-            margin-bottom: 1rem;
-            align-items: center;
-            padding: 1rem;
-            background: #f8f9fa;
-            border-radius: 1rem;
-            transition: transform 0.2s;
-        }
-
-        .config-row:hover {
-            transform: scale(1.01);
-            background: #fff;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
-        }
-
-        .config-header {
-            font-weight: 800;
-            background: var(--primary);
-            color: white;
-            padding: 1rem;
-            border-radius: 1rem;
             margin-bottom: 1.5rem;
+            align-items: center;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid #eee;
         }
 
         input {
             background: #fff;
-            border: 2px solid #e0e0e0;
+            border: 1px solid #ccc;
             color: #333;
-            padding: 0.8rem;
-            border-radius: 0.8rem;
+            padding: 0.7rem;
+            border-radius: 0.5rem;
             width: 100%;
-            transition: border-color 0.3s;
-        }
-
-        input:focus {
-            border-color: var(--primary);
-            outline: none;
         }
 
         label {
-            font-weight: 700;
-            color: #2d3436;
+            font-weight: 600;
+            color: #636e72;
             display: block;
             margin-bottom: 0.5rem;
         }
 
         .save-section {
             margin-top: 3rem;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 1rem;
+            text-align: center;
         }
 
         .date-picker {
             margin-bottom: 3rem;
-            background: #eff6ff;
-            padding: 2rem;
-            border-radius: 1.5rem;
-            border: 1px solid #dbeafe;
+            background: #f9f9f9;
+            padding: 1.5rem;
+            border-radius: 0.8rem;
         }
 
         .btn-primary {
             width: 100%;
-            max-width: 350px;
-            background: linear-gradient(135deg, var(--primary), #003d73);
-            color: white;
-            border: none;
-            padding: 1.2rem;
-            font-size: 1.1rem;
-            font-weight: 700;
-            border-radius: 3rem;
-            cursor: pointer;
-            box-shadow: 0 10px 20px rgba(0, 82, 155, 0.2);
-            transition: all 0.3s;
-        }
-
-        .btn-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 15px 30px rgba(0, 82, 155, 0.3);
+            max-width: 300px;
         }
     </style>
 </head>
@@ -146,14 +103,15 @@
 
         <div class="save-section">
             <button id="save-config" class="btn-primary">Save Configuration</button>
-            <a href="index.html" style="color: var(--primary); display: block; margin-top: 1rem; font-weight: 700; text-decoration: none; border-bottom: 2px solid transparent; transition: border-color 0.3s;" onmouseover="this.style.borderColor='var(--primary)'" onmouseout="this.style.borderColor='transparent'">← Back to Game</a>
+            <a href="index.html" style="color: #6c5ce7; display: block; margin-top: 1rem; font-weight: 600;">Back to
+                Game</a>
         </div>
     </div>
 
     <script>
         const segments = [
-            "Cap", "Jersey", "Football", "Better Luck",
-            "Cap", "Jersey", "Football", "Spin Again"
+            "Extra 5% Off", "Free Lab Test", "Free Gift", "Free e-Consult",
+            "Free Gift", "100% Cashback", "Free Lab Test", "Free Gift"
         ];
         const container = document.getElementById('segments-config');
         const dateInput = document.getElementById('config-date');
@@ -164,7 +122,7 @@
         dateInput.valueAsDate = new Date();
 
         function renderRows() {
-            container.innerHTML = '<div class="config-row config-header"><span>Segment</span><span>Daily Limit</span><span>Weight (0-100)</span></div>';
+            container.innerHTML = '<div class="config-row"><strong>Segment</strong><strong>Daily Limit</strong><strong>Weight (0-100)</strong></div>';
             segments.forEach((s, i) => {
                 const row = document.createElement('div');
                 row.className = 'config-row';

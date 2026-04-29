@@ -436,7 +436,7 @@ body::after {
         gap: 35px;
 
         width: 100%;
-        box-sizing: border-box;
+
     }
 
     .brand-logo:first-child {

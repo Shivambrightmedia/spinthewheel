@@ -289,8 +289,8 @@ body::after {
 }
 
 .segment-img {
-    width: 35px;
-    height: 35px;
+    width: 50px;
+    height: 50px;
     object-fit: contain;
     margin-bottom: 2px;
 }
@@ -387,11 +387,17 @@ body::after {
 }
 
 .win-prize-img {
-    width: 120px;
-    height: 120px;
+    width: 140px;
+    height: 140px;
     object-fit: contain;
     margin: 1rem 0;
-    filter: drop-shadow(0 5px 15px rgba(0,0,0,0.1));
+    filter: drop-shadow(0 10px 20px rgba(0,0,0,0.2));
+    animation: prize-pulse 1.5s infinite alternate ease-in-out;
+}
+
+@keyframes prize-pulse {
+    0% { transform: scale(0.95); filter: drop-shadow(0 5px 10px rgba(0,0,0,0.2)); }
+    100% { transform: scale(1.1); filter: drop-shadow(0 15px 30px rgba(0,0,0,0.3)); }
 }
 
 .win-prize-img.hidden {
@@ -456,8 +462,8 @@ body::after {
     }
 
     .segment-img {
-        width: 25px !important;
-        height: 25px !important;
+        width: 35px !important;
+        height: 35px !important;
     }
 
     .segment-label small {

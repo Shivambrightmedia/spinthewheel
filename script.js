@@ -87,8 +87,11 @@ function initWheel() {
         label.style.transform = `rotate(${angle}deg)`;
 
         // With pointer at the right (90deg), a -90deg span rotation 
-        // ensures icon is upright when the segment stops at the pointer.
-        label.innerHTML = `<span style="transform: rotate(-90deg)"><i class="fa-solid ${segment.icon}" style="font-size: 2rem;"></i></span>`;
+        // ensures content is upright when the segment stops at the pointer.
+        label.innerHTML = `<span style="transform: rotate(-90deg)">
+            <i class="fa-solid ${segment.icon}" style="font-size: 1.5rem;"></i>
+            <small style="display: block; font-size: 0.8rem; margin-top: 5px;">${segment.text}</small>
+        </span>`;
         wheel.appendChild(label);
     });
 }

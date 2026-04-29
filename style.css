@@ -232,13 +232,21 @@ body::after {
 
 .segment-label span {
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     transform-origin: center;
     color: white;
     filter: drop-shadow(0 2px 5px rgba(0, 0, 0, 0.5));
     text-align: center;
-    width: 100px;
+    width: 120px;
+    line-height: 1.2;
+}
+
+.segment-label small {
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
 }
 
 .segment-label i {
@@ -377,11 +385,16 @@ body::after {
     }
 
     .segment-label span {
-        width: 60px;
+        width: 80px;
     }
 
     .segment-label i {
-        font-size: 1.2rem !important;
+        font-size: 1.1rem !important;
+    }
+
+    .segment-label small {
+        font-size: 0.6rem !important;
+        margin-top: 2px !important;
     }
 
     .spin-center {

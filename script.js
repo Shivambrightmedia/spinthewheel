@@ -242,11 +242,12 @@ spinBtn.addEventListener('click', () => {
 
 resetBtn.addEventListener('click', () => {
     resultOverlay.classList.add('hidden');
-    if (resetBtn.innerHTML.includes('Claim Prize')) {
-        // Go back to landing or simulate claim
+    // Go back to landing if "Claim Prize" or "Try Again" (Better Luck)
+    if (resetBtn.innerHTML.includes('Claim Prize') || resetBtn.innerHTML.includes('Try Again')) {
         landingPage.classList.add('active');
         gamePage.classList.remove('active');
     }
+    // If "Spin Now", do nothing else (just hide overlay and allow spin)
 });
 
 

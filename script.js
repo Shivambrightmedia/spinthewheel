@@ -231,6 +231,15 @@ spinBtn.addEventListener('click', () => {
         }, 250);
 
         const result = segments[winningIndex].text;
+        const prizeImage = segments[winningIndex].image;
+        const winImgEl = document.getElementById('win-image');
+
+        if (prizeImage) {
+            winImgEl.src = prizeImage;
+            winImgEl.classList.remove('hidden');
+        } else {
+            winImgEl.classList.add('hidden');
+        }
 
         if (result.includes('Better Luck')) {
             winTitle.innerHTML = 'Oh no! <i class="fa-solid fa-face-frown"></i>';

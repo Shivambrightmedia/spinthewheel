@@ -381,6 +381,21 @@ body::after {
     border-radius: 1rem;
     text-align: center;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.win-prize-img {
+    width: 120px;
+    height: 120px;
+    object-fit: contain;
+    margin: 1rem 0;
+    filter: drop-shadow(0 5px 15px rgba(0,0,0,0.1));
+}
+
+.win-prize-img.hidden {
+    display: none;
 }
 
 .result-card h2 {

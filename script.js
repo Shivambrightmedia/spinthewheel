@@ -1,12 +1,12 @@
 const segments = [
-    { text: "Cap", color: "#00529b" },
-    { text: "Jersey", color: "#b8860b" },
-    { text: "Football", color: "#0f1f38" },
-    { text: "Better Luck", color: "#d4af37" },
-    { text: "Cap", color: "#00529b" },
-    { text: "Jersey", color: "#b8860b" },
-    { text: "Football", color: "#0f1f38" },
-    { text: "Spin Again", color: "#d4af37" }
+    { text: "Cap", icon: "fa-hat-wizard", color: "#00529b" },
+    { text: "Jersey", icon: "fa-shirt", color: "#b8860b" },
+    { text: "Football", icon: "fa-futbol", color: "#0f1f38" },
+    { text: "Better Luck", icon: "fa-face-frown", color: "#d4af37" },
+    { text: "Cap", icon: "fa-hat-wizard", color: "#00529b" },
+    { text: "Jersey", icon: "fa-shirt", color: "#b8860b" },
+    { text: "Football", icon: "fa-futbol", color: "#0f1f38" },
+    { text: "Spin Again", icon: "fa-rotate-right", color: "#d4af37" }
 ];
 
 const wheel = document.getElementById('wheel');
@@ -87,8 +87,8 @@ function initWheel() {
         label.style.transform = `rotate(${angle}deg)`;
 
         // With pointer at the right (90deg), a -90deg span rotation 
-        // ensures text is upright when the segment stops at the pointer.
-        label.innerHTML = `<span style="transform: rotate(-90deg)">${segment.text}</span>`;
+        // ensures icon is upright when the segment stops at the pointer.
+        label.innerHTML = `<span style="transform: rotate(-90deg)"><i class="fa-solid ${segment.icon}" style="font-size: 2rem;"></i></span>`;
         wheel.appendChild(label);
     });
 }

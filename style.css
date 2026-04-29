@@ -231,15 +231,19 @@ body::after {
 }
 
 .segment-label span {
-    display: block;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     transform-origin: center;
-    white-space: nowrap;
-    font-weight: 900;
-    font-size: 1.1rem;
     color: white;
-    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.8);
+    filter: drop-shadow(0 2px 5px rgba(0, 0, 0, 0.5));
     text-align: center;
-    width: 160px;
+    width: 100px;
+}
+
+.segment-label i {
+    filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.3));
+    transition: transform 0.3s ease;
 }
 
 .pointer {
@@ -373,8 +377,11 @@ body::after {
     }
 
     .segment-label span {
-        font-size: 0.75rem;
-        width: 100px;
+        width: 60px;
+    }
+
+    .segment-label i {
+        font-size: 1.2rem !important;
     }
 
     .spin-center {

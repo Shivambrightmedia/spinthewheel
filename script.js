@@ -1,11 +1,11 @@
 const segments = [
-    { text: "Cap", icon: "fa-hat-wizard", color: "#00529b" },
-    { text: "Jersey", icon: "fa-shirt", color: "#b8860b" },
-    { text: "Football", icon: "fa-futbol", color: "#0f1f38" },
+    { text: "Cap", image: "Images/cap.png", color: "#00529b" },
+    { text: "Jersey", image: "Images/jersey.png", color: "#b8860b" },
+    { text: "Football", image: "Images/football (1).png", color: "#0f1f38" },
     { text: "Better Luck", icon: "fa-face-frown", color: "#d4af37" },
-    { text: "Cap", icon: "fa-hat-wizard", color: "#00529b" },
-    { text: "Jersey", icon: "fa-shirt", color: "#b8860b" },
-    { text: "Football", icon: "fa-futbol", color: "#0f1f38" },
+    { text: "Cap", image: "Images/cap.png", color: "#00529b" },
+    { text: "Jersey", image: "Images/jersey.png", color: "#b8860b" },
+    { text: "Football", image: "Images/football (1).png", color: "#0f1f38" },
     { text: "Spin Again", icon: "fa-rotate-right", color: "#d4af37" }
 ];
 
@@ -88,8 +88,15 @@ function initWheel() {
 
         // With pointer at the right (90deg), a -90deg span rotation 
         // ensures content is upright when the segment stops at the pointer.
+        let content = '';
+        if (segment.image) {
+            content = `<img src="${segment.image}" class="segment-img">`;
+        } else {
+            content = `<i class="fa-solid ${segment.icon}" style="font-size: 1.5rem;"></i>`;
+        }
+
         label.innerHTML = `<span style="transform: rotate(-90deg)">
-            <i class="fa-solid ${segment.icon}" style="font-size: 1.5rem;"></i>
+            ${content}
             <small style="display: block; font-size: 0.8rem; margin-top: 5px;">${segment.text}</small>
         </span>`;
         wheel.appendChild(label);

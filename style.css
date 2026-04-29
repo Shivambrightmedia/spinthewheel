@@ -249,9 +249,16 @@ body::after {
     letter-spacing: 0.5px;
 }
 
-.segment-label i {
+.segment-label i, .segment-img {
     filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.3));
     transition: transform 0.3s ease;
+}
+
+.segment-img {
+    width: 35px;
+    height: 35px;
+    object-fit: contain;
+    margin-bottom: 2px;
 }
 
 .pointer {
@@ -390,6 +397,11 @@ body::after {
 
     .segment-label i {
         font-size: 1.1rem !important;
+    }
+
+    .segment-img {
+        width: 25px !important;
+        height: 25px !important;
     }
 
     .segment-label small {

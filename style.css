@@ -19,7 +19,7 @@ body {
 }
 
 * {
-    box-sizing: border-box;
+
     font-family: 'Outfit', sans-serif;
 }
 
@@ -84,15 +84,16 @@ body::after {
 }
 
 .center-logo {
-    height: 70px;
+    height: 110px;
+    /* 10% larger than the 100px you tried */
     width: auto;
 }
 
-.branding-bar img:nth-child(1) {
+.brand-logo:first-child {
     height: 80px;
 }
 
-.branding-bar img:nth-child(3) {
+.brand-logo:last-child {
     height: 55px;
     margin-top: 10px;
 }
@@ -419,8 +420,8 @@ body::after {
     }
 
     .branding-bar img:nth-child(2) {
-        height: 50px;
-        margin-top: 12px;
+        height: 70px;
+
     }
 
     .simple-card {
@@ -431,28 +432,26 @@ body::after {
 
 @media (max-width: 600px) {
     .branding-bar {
-        padding: 0.7rem;
+        padding: 0.5rem;
+        gap:35px;
+        justify-content: space-between;
+        width: 100%;
+        box-sizing: border-box;
     }
 
     .brand-logo:first-child {
-        margin-right: 40px;
+        margin-right: 0;
+        height: 55px;
     }
 
     .brand-logo:last-child {
-        margin-left: 40px;
+
+        height: 50px;
+        margin-top: 0;
     }
 
-    .branding-bar img:nth-child(1) {
-        height: 60px;
-    }
-
-    .branding-bar img:nth-child(2) {
-        height: 45px;
-    }
-
-    .branding-bar img:nth-child(3) {
-        height: 40px;
-        margin-top: 5px;
+    .center-logo {
+        height: 0px;
     }
 
     .segment-label span {

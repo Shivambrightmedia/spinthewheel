@@ -72,32 +72,29 @@ body::after {
     display: flex;
     justify-content: center;
     align-items: center;
-    /* gap: 60px; Removed as per user report */
+    gap: 30px;
     z-index: 50;
     padding: 0.5rem;
     background: rgba(255, 255, 255, 0.9);
     box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
 }
 
-.brand-logo:first-child {
-    margin-right: 100px;
-}
-
-.brand-logo:last-child {
-    margin-left: 100px;
-}
-
-.brand-logo {
+.brand-logo, .center-logo {
     object-fit: contain;
 }
 
-.branding-bar img:nth-child(1) {
-    height: 100px;
+.center-logo {
+    height: 70px;
+    width: auto;
 }
 
-.branding-bar img:nth-child(2) {
-    height: 65px;
-    margin-top: 15px;
+.branding-bar img:nth-child(1) {
+    height: 80px;
+}
+
+.branding-bar img:nth-child(3) {
+    height: 55px;
+    margin-top: 10px;
 }
 
 .page {
@@ -142,7 +139,7 @@ body::after {
 .landing-logo {
     height: 100px;
     width: auto;
-    margin-bottom: 6.5rem;
+    margin-bottom: 2rem;
 }
 
 .featured-image {
@@ -450,8 +447,12 @@ body::after {
     }
 
     .branding-bar img:nth-child(2) {
+        height: 45px;
+    }
+
+    .branding-bar img:nth-child(3) {
         height: 40px;
-        margin-top: 10px;
+        margin-top: 5px;
     }
 
     .segment-label span {

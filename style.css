@@ -68,7 +68,6 @@ body::after {
 .branding-bar {
     position: fixed;
     top: 0;
-    width: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -79,7 +78,8 @@ body::after {
     box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
 }
 
-.brand-logo, .center-logo {
+.brand-logo,
+.center-logo {
     object-fit: contain;
 }
 
@@ -431,7 +431,7 @@ body::after {
 
 @media (max-width: 600px) {
     .branding-bar {
-        padding: 0.3rem;
+        padding: 0.7rem;
     }
 
     .brand-logo:first-child {

@@ -433,8 +433,8 @@ body::after {
 @media (max-width: 600px) {
     .branding-bar {
         padding: 0.5rem;
-        gap:35px;
-        justify-content: space-between;
+        gap: 35px;
+
         width: 100%;
         box-sizing: border-box;
     }

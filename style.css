@@ -275,21 +275,21 @@ body::after {
 
 .segment-label small {
     font-weight: 900;
-    font-size: 1.1rem;
+    font-size: 0.85rem;
     text-transform: uppercase;
-    letter-spacing: 1px;
+    letter-spacing: 0.5px;
 }
 
 .segment-label i,
 .segment-img {
     filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.3));
     transition: transform 0.3s ease;
-    margin-left: -10px;
+    margin-left: -5px;
 }
 
 .segment-img {
-    width: 80px;
-    height: 80px;
+    width: 55px;
+    height: 55px;
     object-fit: contain;
 }
 

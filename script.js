@@ -84,7 +84,7 @@ function initWheel() {
         const label = document.createElement('div');
         label.className = 'segment-label';
         const angle = i * 45 + 22.5;
-        label.style.transform = `translate(-50%, -50%) rotate(${angle}deg) translateY(-95px)`;
+        label.style.transform = `translate(-50%, -50%) rotate(${angle}deg) translateY(-105px)`;
 
         // With pointer at the right (90deg), a -90deg span rotation 
         // ensures content is upright when the segment stops at the pointer.

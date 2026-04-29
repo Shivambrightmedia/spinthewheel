@@ -265,19 +265,21 @@ body::after {
 
 .segment-label span {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     justify-content: center;
     align-items: center;
+    gap: 8px;
     transform-origin: center;
     color: white;
     filter: drop-shadow(0 2px 5px rgba(0, 0, 0, 0.5));
     text-align: center;
-    width: 120px;
+    width: 180px;
     line-height: 1.2;
 }
 
 .segment-label small {
     font-weight: 700;
+    font-size: 0.85rem;
     text-transform: uppercase;
     letter-spacing: 0.5px;
 }
@@ -391,13 +393,20 @@ body::after {
     height: 140px;
     object-fit: contain;
     margin: 1rem 0;
-    filter: drop-shadow(0 10px 20px rgba(0,0,0,0.2));
+    filter: drop-shadow(0 10px 20px rgba(0, 0, 0, 0.2));
     animation: prize-pulse 1.5s infinite alternate ease-in-out;
 }
 
 @keyframes prize-pulse {
-    0% { transform: scale(0.95); filter: drop-shadow(0 5px 10px rgba(0,0,0,0.2)); }
-    100% { transform: scale(1.1); filter: drop-shadow(0 15px 30px rgba(0,0,0,0.3)); }
+    0% {
+        transform: scale(0.95);
+        filter: drop-shadow(0 5px 10px rgba(0, 0, 0, 0.2));
+    }
+
+    100% {
+        transform: scale(1.1);
+        filter: drop-shadow(0 15px 30px rgba(0, 0, 0, 0.3));
+    }
 }
 
 .win-prize-img.hidden {
@@ -454,7 +463,9 @@ body::after {
     }
 
     .segment-label span {
-        width: 80px;
+        width: 120px;
+        flex-direction: row !important;
+        gap: 4px;
     }
 
     .segment-label i {
@@ -468,7 +479,7 @@ body::after {
 
     .segment-label small {
         font-size: 0.6rem !important;
-        margin-bottom: 2px !important;
+        margin-bottom: 0 !important;
     }
 
     .spin-center {

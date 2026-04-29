@@ -96,7 +96,7 @@ function initWheel() {
         }
 
         label.innerHTML = `<span style="transform: rotate(-90deg)">
-            <small style="display: block; font-size: 0.8rem; margin-bottom: 5px;">${segment.text}</small>
+            <small>${segment.text}</small>
             ${content}
         </span>`;
         wheel.appendChild(label);

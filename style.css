@@ -406,7 +406,7 @@ body::after {
 
     .segment-label small {
         font-size: 0.6rem !important;
-        margin-top: 2px !important;
+        margin-bottom: 2px !important;
     }
 
     .spin-center {
